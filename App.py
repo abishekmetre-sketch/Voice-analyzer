@@ -46,7 +46,15 @@ if uploaded is not None:
     ax2.set_ylabel("F0 (Hz)")
     if np.isfinite(np.nanmax(f0)):
         ax2.set_ylim(0, np.nanmax(f0) * 1.2)
-    st.pyplot(fig2)="voice_metrics.csv", mime="text/csv")
+    st.pyplot(fig2)
+
+csv = pd.DataFrame([report]).to_csv(index=False)
+st.download_button(
+    "Download metrics as CSV",
+    data=csv,
+    file_name="voice_metrics.csv",
+    mime="text/csv"
+)
 
 else:
     st.info("Upload an audio file to begin.")
